@@ -1,3 +1,8 @@
 <resources>
-  <string name="app_name">Invitrode</string>
+  <string name="app_name">invitrode</string>
+  <string name="generate_word_navigation">Generator</string>
+  <string name="word_list_navigation">Favorites</string>
+  <string name="settings_navigation">Settings</string>
+  <string name="generate">Generate</string>
+  <string name="specify_word_length">Specify Word Length</string>
 </resources>

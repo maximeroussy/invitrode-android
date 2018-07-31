@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/navigation_generate_word"
+      android:icon="@drawable/ic_new_word_24px"
+      android:title="@string/generate_word_navigation"/>
+  <item
+      android:id="@+id/navigation_word_list"
+      android:icon="@drawable/ic_list_black_24dp"
+      android:title="@string/word_list_navigation"/>
+
+  <item
+    android:id="@+id/navigation_settings"
+    android:icon="@drawable/ic_settings_black_24dp"
+    android:title="@string/settings_navigation"/>
+</menu>
