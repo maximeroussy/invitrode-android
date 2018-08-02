@@ -5,69 +5,110 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <data>
-    <variable name="viewModel" type="com.maximeroussy.invitrode.generateword.GenerateWordViewModel"/>
+    <variable name="viewModel" type="com.maximeroussy.invitrode.presentation.generateword.GenerateWordViewModel"/>
   </data>
   <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="match_parent"
+      >
 
     <TextView
         android:id="@+id/generated_word"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:paddingBottom="20dp"
+        android:text="@{viewModel.generatedWord}"
         android:textAlignment="center"
         android:textSize="28sp"
-        android:text="@{viewModel.generatedWord}"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="true"
         app:layout_constraintBottom_toTopOf="@+id/generate_word_button"
-        tools:text="Invitrode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="INVITRODE"
         />
 
-    <TextView
-        android:id="@+id/specify_length_label"
+    <ImageView
+        android:id="@+id/favorite_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/specify_word_length"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/generated_word"
-        app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="20dp"
+        android:src="@{viewModel.isWordFavorited ? @drawable/ic_star_black_24dp : @drawable/ic_star_border_black_24dp}"
+        android:onClick="@{() -> viewModel.onFavoriteClicked()}"
+        app:layout_constraintBottom_toTopOf="@+id/specify_length_checkbox"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/generated_word"
         />
 
     <CheckBox
         android:id="@+id/specify_length_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:text="@string/specify_word_length"
+        app:layout_constraintEnd_toStartOf="@+id/word_length_number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/length_seekbar"
-        app:layout_constraintTop_toBottomOf="@+id/specify_length_label"
+        app:layout_constraintTop_toBottomOf="@+id/favorite_button"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        />
+
+    <TextView
+        android:id="@+id/word_length_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.wordLength}"
+        app:layout_constraintBaseline_toBaselineOf="@+id/specify_length_checkbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/specify_length_checkbox"
+        app:layout_constraintTop_toBottomOf="@id/favorite_button"
+        android:paddingStart="5dp"
+        tools:text="6"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/twenty_vert_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2"
         />
 
     <SeekBar
-        android:id="@+id/length_seekbar"
-        android:layout_width="100dp"
+        android:id="@+id/word_length_seekbar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/specify_length_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/specify_length_label"
+        android:layout_marginTop="5dp"
+        android:max="9"
+        android:enabled="@{viewModel.specifyWordLengthEnabled}"
+        app:layout_constraintEnd_toStartOf="@+id/eighty_vert_guideline"
+        app:layout_constraintStart_toStartOf="@+id/twenty_vert_guideline"
+        app:layout_constraintTop_toBottomOf="@id/specify_length_checkbox"
+        android:onProgressChanged="@{(seekbar, progress, fromUser) -> viewModel.onWordLengthChanged(progress, fromUser)}"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/eighty_vert_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8"
         />
 
     <Button
         android:id="@+id/generate_word_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="@{() -> viewModel.generateNewWord()}"
         android:text="@string/generate"
         android:textSize="16sp"
-        android:onClick="@{() -> viewModel.generateNewWord()}"
-        style="@style/Base.TextAppearance.AppCompat.Widget.Button.Colored"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:enabled="@{viewModel.generateButtonEnabled}"
+        app:layout_constraintTop_toBottomOf="@+id/word_length_seekbar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/Widget.AppCompat.Button.Colored"
         />
+
 
   </android.support.constraint.ConstraintLayout>
 </layout>

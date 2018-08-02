@@ -1,4 +1,4 @@
-package com.maximeroussy.invitrode
+package com.maximeroussy.invitrode.presentation
 
 import android.support.v4.view.ViewPager.PageTransformer
 import android.view.View
