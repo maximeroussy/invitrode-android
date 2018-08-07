@@ -3,6 +3,7 @@
   <string name="generate_word_navigation">Generator</string>
   <string name="word_list_navigation">Favorites</string>
   <string name="settings">Settings</string>
+  <string name="delete">Delete</string>
   <string name="generate">Generate</string>
   <string name="specify_word_length">Specify Word Length: </string>
   <string name="word_length_limit_preference_title">Word length limit</string>
