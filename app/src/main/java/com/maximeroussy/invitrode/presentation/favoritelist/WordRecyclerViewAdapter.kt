@@ -43,7 +43,6 @@ class WordRecyclerViewAdapter(private val items: MutableList<Word>) : RecyclerVi
   fun select(position: Int) {
     if (selectedItems.get(position, false)) {
       selectedItems.delete(position)
-
     } else {
       selectedItems.put(position, true)
     }
@@ -67,6 +66,10 @@ class WordRecyclerViewAdapter(private val items: MutableList<Word>) : RecyclerVi
       }
     }
     return selectedWords
+  }
+
+  fun getItem(position: Int): Word {
+    return items[position]
   }
 
   fun updateData(newData: List<Word>) {

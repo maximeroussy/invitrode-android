@@ -4,6 +4,10 @@
   <color name="colorPrimaryDark">#246048</color>
   <color name="colorAccent">#ffc940</color>
 
-  <color name="off_white">#e1e1e1</color>
+  <color name="off_white">#e9e9e9</color>
   <color name="white">#FFFFFF</color>
+
+  <color name="seek_bar_background">#ababab</color>
+  <color name="seek_bar_progress">@color/colorAccent</color>
+  <color name="seek_bar_secondary_progress">@color/colorPrimary</color>
 </resources>

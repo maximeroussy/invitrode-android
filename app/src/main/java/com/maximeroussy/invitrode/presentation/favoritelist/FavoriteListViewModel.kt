@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData
 import com.maximeroussy.invitrode.data.InvitrodeDatabase
 import com.maximeroussy.invitrode.data.words.Word
 import com.maximeroussy.invitrode.data.words.WordDao
+import com.maximeroussy.invitrode.util.SingleLiveEvent
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
@@ -14,6 +15,10 @@ import kotlinx.coroutines.experimental.launch
 
 class FavoriteListViewModel(application: Application) : AndroidViewModel(application) {
   private val wordDao: WordDao = InvitrodeDatabase.getInstance(application).wordDao()
+  private val showRemovedFromFavorites = SingleLiveEvent<Any>()
+
+  val getShowRemovedFromFavorites : LiveData<Any>
+    get() = showRemovedFromFavorites
 
   fun getWordList(): LiveData<List<Word>> {
     return wordDao.getAll()
@@ -22,6 +27,7 @@ class FavoriteListViewModel(application: Application) : AndroidViewModel(applica
   fun deleteWords(wordsToDelete: List<Word>) {
     launch(UI) {
       databaseDelete(wordsToDelete).await()
+      showRemovedFromFavorites.call()
     }
   }
 

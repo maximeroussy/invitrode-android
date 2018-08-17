@@ -15,6 +15,9 @@ interface WordDao {
   @Query("SELECT * FROM word WHERE id LIKE :value")
   fun getById(value: Long): Word
 
+  @Query("SELECT * FROM word WHERE word LIKE :value")
+  fun getByWord(value: String): Word
+
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insert(newWord: Word)
 

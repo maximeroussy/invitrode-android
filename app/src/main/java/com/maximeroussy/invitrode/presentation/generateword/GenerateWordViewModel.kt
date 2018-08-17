@@ -1,52 +1,79 @@
 package com.maximeroussy.invitrode.presentation.generateword
 
-import android.arch.lifecycle.ViewModel
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.maximeroussy.invitrode.RandomWord
 import com.maximeroussy.invitrode.data.InvitrodeDatabase
 import com.maximeroussy.invitrode.data.words.Word
+import com.maximeroussy.invitrode.data.words.WordDao
+import com.maximeroussy.invitrode.util.SingleLiveEvent
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
-import java.util.Random
+import java.util.*
 
-class GenerateWordViewModel: ViewModel() {
-  val generatedWord = ObservableField<String>("INVITRODE")
+class GenerateWordViewModel(application: Application) : AndroidViewModel(application) {
+  val word = ObservableField<String>("INVITRODE")
   val wordLength = ObservableField<String>("3")
   val generateButtonEnabled = ObservableBoolean(true)
+  val favoriteButtonEnabled = ObservableBoolean(true)
   val specifyWordLengthEnabled = ObservableBoolean(false)
   val isWordFavorited = ObservableBoolean(false)
+  private val showSavedToFavorites = SingleLiveEvent<Any>()
+  private val showRemovedFromFavorites = SingleLiveEvent<Any>()
   private val random = Random()
-  private lateinit var database: InvitrodeDatabase
+  private val wordStack = Stack<String>()
+  private val wordDao: WordDao = InvitrodeDatabase.getInstance(application).wordDao()
+  private var isTwoWords = false
 
-  fun bound(database: InvitrodeDatabase) {
-    this.database = database
-  }
+  val getShowSavedToFavorites : LiveData<Any>
+    get() = showSavedToFavorites
 
-  fun onFavoriteClicked() {
+  val getShowRemovedFromFavorites : LiveData<Any>
+    get() = showRemovedFromFavorites
+
+  fun onFavoriteButtonClicked() {
+    favoriteButtonEnabled.set(false)
     isWordFavorited.set(!isWordFavorited.get())
     if (isWordFavorited.get()) {
       launch(UI) {
-        saveWordToFavorites(Word(word = generatedWord.get().toString()))
+        saveWordToFavorites(Word(word = word.get().toString()))
+        showSavedToFavorites.call()
+        favoriteButtonEnabled.set(true)
+      }
+    } else {
+      launch(UI) {
+        removeWordFromFavorites(word.get().toString())
+        showRemovedFromFavorites.call()
+        favoriteButtonEnabled.set(true)
       }
     }
   }
 
-  fun generateNewWord() {
-    val newWord = when(specifyWordLengthEnabled.get()) {
-      true -> RandomWord.getNewWord(wordLength.get()!!.toInt())
-      false -> RandomWord.getNewWord(rand(3, 12))
+  fun onGenerateNewWordButtonClicked() {
+    wordStack.push(word.get())
+    val newWord = generateRandomWord()
+    resetFavorite()
+    word.set(newWord)
+  }
+
+  fun onPreviousWordButtonClicked() {
+    if (!wordStack.empty()) {
+      word.set(wordStack.pop())
+      resetFavorite()
     }
-    if (isWordFavorited.get()) {
-      isWordFavorited.set(false)
-    }
-    generatedWord.set(newWord)
   }
 
   fun onSpecifyWordLengthOptionChanged(value: Boolean) {
     specifyWordLengthEnabled.set(value)
+  }
+
+  fun onTwoWordsOptionChanged(value: Boolean) {
+    isTwoWords = value
   }
 
   fun onWordLengthChanged(value: Int, fromUser: Boolean) {
@@ -56,8 +83,37 @@ class GenerateWordViewModel: ViewModel() {
     }
   }
 
+  private fun generateRandomWord(): String {
+    return when (specifyWordLengthEnabled.get()) {
+      true -> {
+        val length = wordLength.get()!!.toInt()
+        when (isTwoWords) {
+          true -> RandomWord.getNewWord(length) + " " + RandomWord.getNewWord(length)
+          false -> RandomWord.getNewWord(length)
+        }
+      }
+      false -> {
+        when (isTwoWords) {
+          true -> RandomWord.getNewWord(rand(3, 12)) + " " + RandomWord.getNewWord(rand(3, 12))
+          false -> RandomWord.getNewWord(rand(3, 12))
+        }
+      }
+    }
+  }
+
+  private fun resetFavorite() {
+    if (isWordFavorited.get()) {
+      isWordFavorited.set(false)
+    }
+  }
+
   private suspend fun saveWordToFavorites(word: Word) = withContext(CommonPool) {
-    database.wordDao().insert(word)
+    wordDao.insert(word)
+  }
+
+  private suspend fun removeWordFromFavorites(value: String) = withContext(CommonPool) {
+    val word = wordDao.getByWord(value)
+    wordDao.delete(word)
   }
 
   private fun rand(from: Int, to: Int) : Int {
