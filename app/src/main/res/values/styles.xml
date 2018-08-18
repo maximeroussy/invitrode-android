@@ -9,7 +9,8 @@
     <item name="windowActionModeOverlay">true</item>
   </style>
 
-  <style name="SplashScreenTheme" parent="Theme.AppCompat.NoActionBar">
+  <style name="SplashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <item name="android:windowTranslucentStatus">true</item>
     <item name="android:windowBackground">@drawable/splashscreen_background</item>
   </style>
 

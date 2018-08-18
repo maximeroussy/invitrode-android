@@ -1,6 +1,5 @@
 <resources>
-  <string name="app_name">invitrode</string>
-  <string name="app_name_cap">INVITRODE</string>
+  <string name="app_name">Invitrode</string>
   <string name="generate_word_navigation">Generator</string>
   <string name="word_list_navigation">Favorites</string>
   <string name="copy">Copy</string>
@@ -14,4 +13,10 @@
   <string name="saved_to_favorites">Added to favorites.</string>
   <string name="removed_from_favorites">Removed from favorites.</string>
   <string name="copied_to_clipboard">Copied to clipboard.</string>
+  <string name="ok">OK</string>
+  <string name="error">Error</string>
+  <string name="error_saving_to_favorites">There was an unexpected error saving the word to your favorites.
+    \n\nPlease try again.</string>
+  <string name="error_removing_from_favorites">There was an unexpected error removing the word from your favorites.
+    \n\nPlease try again.</string>
 </resources>

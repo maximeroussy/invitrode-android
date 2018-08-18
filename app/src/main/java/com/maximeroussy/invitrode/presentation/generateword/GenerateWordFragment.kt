@@ -1,18 +1,20 @@
 package com.maximeroussy.invitrode.presentation.generateword
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import android.content.DialogInterface
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.maximeroussy.invitrode.R
+import com.maximeroussy.invitrode.R.string
 import com.maximeroussy.invitrode.databinding.FragmentGenerateWordBinding
-
 
 class GenerateWordFragment: Fragment() {
   private lateinit var binding: FragmentGenerateWordBinding
@@ -42,10 +44,26 @@ class GenerateWordFragment: Fragment() {
 
   private fun setupObservables() {
     viewModel.getShowSavedToFavorites.observe(this, Observer {
-      Snackbar.make(activity!!.findViewById(R.id.container), R.string.saved_to_favorites, Snackbar.LENGTH_SHORT).show()
+      Snackbar.make(activity!!.findViewById(R.id.container), string.saved_to_favorites, Snackbar.LENGTH_SHORT).show()
     })
     viewModel.getShowRemovedFromFavorites.observe(this, Observer {
       Snackbar.make(activity!!.findViewById(R.id.container), R.string.removed_from_favorites, Snackbar.LENGTH_SHORT).show()
     })
+    viewModel.getShowSaveToFavoritesError.observe(this, Observer {
+      showDialog(R.string.error_saving_to_favorites)
+    })
+    viewModel.getShowRemoveFromFavoritesError.observe(this, Observer {
+      showDialog(R.string.error_removing_from_favorites)
+    })
+  }
+
+  private fun showDialog(messageId: Int) {
+    activity?.let {
+      val builder = AlertDialog.Builder(it)
+      builder.setTitle(R.string.error)
+      builder.setMessage(messageId)
+      builder.setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+      builder.show()
+    }
   }
 }

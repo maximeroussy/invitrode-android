@@ -1,13 +1,13 @@
 package com.maximeroussy.invitrode.presentation.favoritelist
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import com.maximeroussy.invitrode.BR
 import com.maximeroussy.invitrode.R
 import com.maximeroussy.invitrode.data.words.Word

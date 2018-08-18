@@ -1,24 +1,25 @@
 package com.maximeroussy.invitrode.presentation.favoritelist
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.view.ActionMode
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.DividerItemDecoration.VERTICAL
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout.VERTICAL
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ActionMode
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.maximeroussy.invitrode.R
 import com.maximeroussy.invitrode.data.words.Word
 import com.maximeroussy.invitrode.databinding.FragmentFavoriteListBinding
@@ -54,6 +55,9 @@ class FavoriteListFragment : Fragment(), WordRecyclerViewAdapter.OnItemClickList
     viewModel.getWordList().observe(this, Observer { list -> list?.let { adapter.updateData(list) } })
     viewModel.getShowRemovedFromFavorites.observe(this, Observer {
       Snackbar.make(activity!!.findViewById(R.id.container), R.string.removed_from_favorites, Snackbar.LENGTH_SHORT).show()
+    })
+    viewModel.getShowRemoveFromFavoritesError.observe(this, Observer {
+      showDialog(R.string.error_removing_from_favorites)
     })
   }
 
@@ -107,6 +111,16 @@ class FavoriteListFragment : Fragment(), WordRecyclerViewAdapter.OnItemClickList
     adapter.notifyDataSetChanged()
     actionMode?.finish()
     actionMode = null
+  }
+
+  private fun showDialog(messageId: Int) {
+    activity?.let {
+      val builder = AlertDialog.Builder(it)
+      builder.setTitle(R.string.error)
+      builder.setMessage(messageId)
+      builder.setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+      builder.show()
+    }
   }
 
   private fun setMenuCopyVisibility(value: Boolean) {

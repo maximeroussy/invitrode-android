@@ -1,10 +1,10 @@
 package com.maximeroussy.invitrode.presentation.generateword
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.maximeroussy.invitrode.RandomWord
 import com.maximeroussy.invitrode.data.InvitrodeDatabase
 import com.maximeroussy.invitrode.data.words.Word
@@ -14,7 +14,8 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
-import java.util.*
+import java.util.Random
+import java.util.Stack
 
 class GenerateWordViewModel(application: Application) : AndroidViewModel(application) {
   val word = ObservableField<String>("INVITRODE")
@@ -25,6 +26,8 @@ class GenerateWordViewModel(application: Application) : AndroidViewModel(applica
   val isWordFavorited = ObservableBoolean(false)
   private val showSavedToFavorites = SingleLiveEvent<Any>()
   private val showRemovedFromFavorites = SingleLiveEvent<Any>()
+  private val showSaveToFavoritesError = SingleLiveEvent<Any>()
+  private val showRemoveFromFavoritesError = SingleLiveEvent<Any>()
   private val random = Random()
   private val wordStack = Stack<String>()
   private val wordDao: WordDao = InvitrodeDatabase.getInstance(application).wordDao()
@@ -36,20 +39,34 @@ class GenerateWordViewModel(application: Application) : AndroidViewModel(applica
   val getShowRemovedFromFavorites : LiveData<Any>
     get() = showRemovedFromFavorites
 
+  val getShowSaveToFavoritesError : LiveData<Any>
+    get() = showSaveToFavoritesError
+
+  val getShowRemoveFromFavoritesError : LiveData<Any>
+    get() = showRemoveFromFavoritesError
+
   fun onFavoriteButtonClicked() {
     favoriteButtonEnabled.set(false)
     isWordFavorited.set(!isWordFavorited.get())
     if (isWordFavorited.get()) {
       launch(UI) {
-        saveWordToFavorites(Word(word = word.get().toString()))
-        showSavedToFavorites.call()
-        favoriteButtonEnabled.set(true)
+        try {
+          saveWordToFavorites(Word(word = word.get().toString()))
+          showSavedToFavorites.call()
+          favoriteButtonEnabled.set(true)
+        } catch (e: Exception) {
+          showSaveToFavoritesError.call()
+        }
       }
     } else {
       launch(UI) {
-        removeWordFromFavorites(word.get().toString())
-        showRemovedFromFavorites.call()
-        favoriteButtonEnabled.set(true)
+        try {
+          removeWordFromFavorites(word.get().toString())
+          showRemovedFromFavorites.call()
+          favoriteButtonEnabled.set(true)
+        } catch (e: Exception) {
+          showRemoveFromFavoritesError.call()
+        }
       }
     }
   }
