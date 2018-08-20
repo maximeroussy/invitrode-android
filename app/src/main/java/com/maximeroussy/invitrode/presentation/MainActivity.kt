@@ -1,7 +1,5 @@
 package com.maximeroussy.invitrode.presentation
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -27,13 +25,6 @@ class MainActivity: AppCompatActivity() {
     val viewPager = findViewById<ViewPager>(id.viewpager)
     val tabLayout = findViewById<TabLayout>(id.tab_layout)
     viewPager.adapter = MainFragmentPagerAdapter(supportFragmentManager)
-    viewPager.setPageTransformer(true, MainPageTransformer())
     tabLayout.setupWithViewPager(viewPager)
-  }
-
-  companion object {
-    fun newInstance(context: Context): Intent {
-      return Intent(context, MainActivity::class.java)
-    }
   }
 }
