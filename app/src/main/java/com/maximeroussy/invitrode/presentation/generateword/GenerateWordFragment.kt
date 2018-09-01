@@ -55,6 +55,9 @@ class GenerateWordFragment: Fragment() {
     viewModel.getShowRemoveFromFavoritesError.observe(this, Observer {
       showDialog(R.string.error_removing_from_favorites)
     })
+    viewModel.getShowWordLengthEnabled.observe(this, Observer {
+      binding.specifyLengthCheckbox.isChecked = true
+    })
   }
 
   private fun showDialog(messageId: Int) {

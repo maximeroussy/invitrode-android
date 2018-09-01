@@ -14,8 +14,7 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
-import java.util.Random
-import java.util.Stack
+import java.util.*
 
 class GenerateWordViewModel(application: Application) : AndroidViewModel(application) {
   val word = ObservableField<String>("INVITRODE")
@@ -28,6 +27,7 @@ class GenerateWordViewModel(application: Application) : AndroidViewModel(applica
   private val showRemovedFromFavorites = SingleLiveEvent<Any>()
   private val showSaveToFavoritesError = SingleLiveEvent<Any>()
   private val showRemoveFromFavoritesError = SingleLiveEvent<Any>()
+  private val showWordLengthEnabled = SingleLiveEvent<Any>()
   private val random = Random()
   private val wordStack = Stack<String>()
   private val wordDao: WordDao = InvitrodeDatabase.getInstance(application).wordDao()
@@ -44,6 +44,9 @@ class GenerateWordViewModel(application: Application) : AndroidViewModel(applica
 
   val getShowRemoveFromFavoritesError : LiveData<Any>
     get() = showRemoveFromFavoritesError
+
+  val getShowWordLengthEnabled : LiveData<Any>
+    get() = showWordLengthEnabled
 
   fun onFavoriteButtonClicked() {
     favoriteButtonEnabled.set(false)
@@ -96,6 +99,8 @@ class GenerateWordViewModel(application: Application) : AndroidViewModel(applica
   fun onWordLengthChanged(value: Int, fromUser: Boolean) {
     if (fromUser) {
       // minimum word length is enforced to 3
+      specifyWordLengthEnabled.set(true)
+      showWordLengthEnabled.call()
       wordLength.set((value + 3).toString())
     }
   }
