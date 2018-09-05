@@ -15,7 +15,7 @@ def versionPatch = 0
 android {
   compileSdkVersion 28
   defaultConfig {
-    applicationId "com.maximeroussy.invitrode"
+    applicationId "com.maximeroussy.invitrodeandroid"
     minSdkVersion 21
     targetSdkVersion 28
     versionCode 1

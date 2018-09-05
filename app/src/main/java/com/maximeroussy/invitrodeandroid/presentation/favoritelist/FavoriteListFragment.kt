@@ -1,4 +1,4 @@
-package com.maximeroussy.invitrode.presentation.favoritelist
+package com.maximeroussy.invitrodeandroid.presentation.favoritelist
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -20,9 +20,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.maximeroussy.invitrode.R
-import com.maximeroussy.invitrode.data.words.Word
-import com.maximeroussy.invitrode.databinding.FragmentFavoriteListBinding
+import com.maximeroussy.invitrodeandroid.R
+import com.maximeroussy.invitrodeandroid.data.words.Word
+import com.maximeroussy.invitrodeandroid.databinding.FragmentFavoriteListBinding
 
 class FavoriteListFragment : Fragment(), WordRecyclerViewAdapter.OnItemClickListener {
   private lateinit var binding: FragmentFavoriteListBinding

@@ -1,4 +1,4 @@
-package com.maximeroussy.invitrode.data.words
+package com.maximeroussy.invitrodeandroid.data.words
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

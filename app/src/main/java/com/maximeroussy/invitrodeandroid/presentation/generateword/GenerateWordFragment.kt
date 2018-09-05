@@ -1,6 +1,5 @@
-package com.maximeroussy.invitrode.presentation.generateword
+package com.maximeroussy.invitrodeandroid.presentation.generateword
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import com.maximeroussy.invitrode.R
-import com.maximeroussy.invitrode.R.string
-import com.maximeroussy.invitrode.databinding.FragmentGenerateWordBinding
+import com.maximeroussy.invitrodeandroid.R
+import com.maximeroussy.invitrodeandroid.R.string
+import com.maximeroussy.invitrodeandroid.databinding.FragmentGenerateWordBinding
 
 class GenerateWordFragment: Fragment() {
   private lateinit var binding: FragmentGenerateWordBinding

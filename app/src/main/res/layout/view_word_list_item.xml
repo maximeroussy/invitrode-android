@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
   <data>
-    <variable name="item" type="com.maximeroussy.invitrode.data.words.Word"/>
+    <variable name="item" type="com.maximeroussy.invitrodeandroid.data.words.Word"/>
   </data>
   <LinearLayout
       android:layout_width="match_parent"

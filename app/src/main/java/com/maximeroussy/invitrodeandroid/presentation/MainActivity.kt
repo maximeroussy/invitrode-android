@@ -1,12 +1,12 @@
-package com.maximeroussy.invitrode.presentation
+package com.maximeroussy.invitrodeandroid.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.maximeroussy.invitrode.R.id
-import com.maximeroussy.invitrode.R.layout
+import com.maximeroussy.invitrodeandroid.R.id
+import com.maximeroussy.invitrodeandroid.R.layout
 
 class MainActivity: AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {

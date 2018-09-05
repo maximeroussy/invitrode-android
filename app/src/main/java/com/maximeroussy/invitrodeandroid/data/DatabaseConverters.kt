@@ -1,4 +1,4 @@
-package com.maximeroussy.invitrode.data
+package com.maximeroussy.invitrodeandroid.data
 
 import androidx.room.TypeConverter
 import java.util.Date

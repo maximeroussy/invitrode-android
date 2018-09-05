@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <data>
-    <variable name="viewModel" type="com.maximeroussy.invitrode.presentation.generateword.GenerateWordViewModel"/>
+    <variable name="viewModel" type="com.maximeroussy.invitrodeandroid.presentation.generateword.GenerateWordViewModel"/>
   </data>
   <ScrollView
       android:id="@+id/container"

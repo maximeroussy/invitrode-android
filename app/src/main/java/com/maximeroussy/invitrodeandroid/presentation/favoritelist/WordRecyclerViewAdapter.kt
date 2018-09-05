@@ -1,4 +1,4 @@
-package com.maximeroussy.invitrode.presentation.favoritelist
+package com.maximeroussy.invitrodeandroid.presentation.favoritelist
 
 import android.graphics.Color
 import android.util.SparseBooleanArray
@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.maximeroussy.invitrode.BR
-import com.maximeroussy.invitrode.R
-import com.maximeroussy.invitrode.data.words.Word
-import com.maximeroussy.invitrode.presentation.favoritelist.WordRecyclerViewAdapter.WordViewHolder
+import com.maximeroussy.invitrodeandroid.BR
+import com.maximeroussy.invitrodeandroid.R
+import com.maximeroussy.invitrodeandroid.data.words.Word
+import com.maximeroussy.invitrodeandroid.presentation.favoritelist.WordRecyclerViewAdapter.WordViewHolder
 
 class WordRecyclerViewAdapter(private val items: MutableList<Word>) : RecyclerView.Adapter<WordViewHolder>() {
   private var onItemClickListener: OnItemClickListener? = null

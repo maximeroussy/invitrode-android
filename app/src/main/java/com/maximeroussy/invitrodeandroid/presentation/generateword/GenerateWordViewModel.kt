@@ -1,15 +1,15 @@
-package com.maximeroussy.invitrode.presentation.generateword
+package com.maximeroussy.invitrodeandroid.presentation.generateword
 
 import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.maximeroussy.invitrode.RandomWord
-import com.maximeroussy.invitrode.data.InvitrodeDatabase
-import com.maximeroussy.invitrode.data.words.Word
-import com.maximeroussy.invitrode.data.words.WordDao
-import com.maximeroussy.invitrode.util.SingleLiveEvent
+import com.maximeroussy.invitrodeandroid.RandomWord
+import com.maximeroussy.invitrodeandroid.data.InvitrodeDatabase
+import com.maximeroussy.invitrodeandroid.data.words.Word
+import com.maximeroussy.invitrodeandroid.data.words.WordDao
+import com.maximeroussy.invitrodeandroid.util.SingleLiveEvent
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
