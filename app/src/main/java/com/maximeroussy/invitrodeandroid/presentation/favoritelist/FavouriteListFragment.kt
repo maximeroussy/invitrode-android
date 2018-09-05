@@ -22,22 +22,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.maximeroussy.invitrodeandroid.R
 import com.maximeroussy.invitrodeandroid.data.words.Word
-import com.maximeroussy.invitrodeandroid.databinding.FragmentFavoriteListBinding
+import com.maximeroussy.invitrodeandroid.databinding.FragmentFavouriteListBinding
 
-class FavoriteListFragment : Fragment(), WordRecyclerViewAdapter.OnItemClickListener {
-  private lateinit var binding: FragmentFavoriteListBinding
-  private lateinit var viewModel: FavoriteListViewModel
+class FavouriteListFragment : Fragment(), WordRecyclerViewAdapter.OnItemClickListener {
+  private lateinit var binding: FragmentFavouriteListBinding
+  private lateinit var viewModel: FavouriteListViewModel
   private lateinit var adapter: WordRecyclerViewAdapter
   private var actionMode: ActionMode? = null
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite_list, container, false)
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourite_list, container, false)
     return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    viewModel = ViewModelProviders.of(this).get(FavoriteListViewModel::class.java)
+    viewModel = ViewModelProviders.of(this).get(FavouriteListViewModel::class.java)
     binding.viewModel = viewModel
     configureRecyclerView()
     subscribeToViewModelEvents()

@@ -3,16 +3,16 @@ package com.maximeroussy.invitrodeandroid.presentation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.maximeroussy.invitrodeandroid.presentation.favoritelist.FavoriteListFragment
+import com.maximeroussy.invitrodeandroid.presentation.favoritelist.FavouriteListFragment
 import com.maximeroussy.invitrodeandroid.presentation.generateword.GenerateWordFragment
 
 class MainFragmentPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
-  private val tabTitles = arrayOf("Generator", "Favorites")
+  private val tabTitles = arrayOf("Generator", "Favourites")
 
   override fun getItem(position: Int): Fragment {
     return when (position) {
       0 -> GenerateWordFragment()
-      1 -> FavoriteListFragment()
+      1 -> FavouriteListFragment()
       else -> GenerateWordFragment()
     }
   }

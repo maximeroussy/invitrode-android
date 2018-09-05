@@ -13,7 +13,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
 
-class FavoriteListViewModel(application: Application) : AndroidViewModel(application) {
+class FavouriteListViewModel(application: Application) : AndroidViewModel(application) {
   private val wordDao: WordDao = InvitrodeDatabase.getInstance(application).wordDao()
   private val showRemovedFromFavorites = SingleLiveEvent<Any>()
   private val showRemoveFromFavoritesError = SingleLiveEvent<Any>()

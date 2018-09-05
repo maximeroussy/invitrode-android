@@ -1,22 +1,20 @@
 <resources>
   <string name="app_name">Invitrode</string>
   <string name="generate_word_navigation">Generator</string>
-  <string name="word_list_navigation">Favorites</string>
+  <string name="word_list_navigation">Favourites</string>
   <string name="copy">Copy</string>
   <string name="delete">Delete</string>
   <string name="generate">Generate</string>
   <string name="specify_word_length">Word Length: </string>
   <string name="two_words">Two words</string>
-  <string name="word_length_limit_preference_title">Word length limit</string>
-  <string name="word_length_limit_preference_summary">Set your own max limit</string>
   <string name="options">Options</string>
-  <string name="saved_to_favorites">Added to favorites.</string>
-  <string name="removed_from_favorites">Removed from favorites.</string>
+  <string name="saved_to_favorites">Added to favourites.</string>
+  <string name="removed_from_favorites">Removed from favourites.</string>
   <string name="copied_to_clipboard">Copied to clipboard.</string>
   <string name="ok">OK</string>
   <string name="error">Error</string>
-  <string name="error_saving_to_favorites">There was an unexpected error saving the word to your favorites.
+  <string name="error_saving_to_favorites">There was an unexpected error saving the word to your favourites.
     \n\nPlease try again.</string>
-  <string name="error_removing_from_favorites">There was an unexpected error removing the word from your favorites.
+  <string name="error_removing_from_favorites">There was an unexpected error removing the word from your favourites.
     \n\nPlease try again.</string>
 </resources>
