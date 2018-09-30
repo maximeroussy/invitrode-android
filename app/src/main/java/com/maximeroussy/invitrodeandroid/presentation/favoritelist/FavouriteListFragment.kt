@@ -23,6 +23,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.maximeroussy.invitrodeandroid.R
 import com.maximeroussy.invitrodeandroid.data.words.Word
 import com.maximeroussy.invitrodeandroid.databinding.FragmentFavouriteListBinding
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
+import kotlinx.android.synthetic.main.fragment_favourite_list.*
 
 class FavouriteListFragment : Fragment(), WordRecyclerViewAdapter.OnItemClickListener {
   private lateinit var binding: FragmentFavouriteListBinding
@@ -44,15 +46,19 @@ class FavouriteListFragment : Fragment(), WordRecyclerViewAdapter.OnItemClickLis
   }
 
   private fun configureRecyclerView() {
-    binding.recyclerview.layoutManager = LinearLayoutManager(context)
+    val recyclerView = binding.recyclerview
+    recyclerView.layoutManager = LinearLayoutManager(context)
     adapter = WordRecyclerViewAdapter(ArrayList())
-    binding.recyclerview.adapter = adapter
+    recyclerView.adapter = adapter
     adapter.setOnItemClickListener(this)
-    binding.recyclerview.addItemDecoration(DividerItemDecoration(binding.recyclerview.context, VERTICAL))
+    recyclerView.addItemDecoration(DividerItemDecoration(binding.recyclerview.context, VERTICAL))
   }
 
   private fun subscribeToViewModelEvents() {
-    viewModel.getWordList().observe(this, Observer { list -> list?.let { adapter.updateData(list) } })
+    viewModel.getWordList().observe(this, Observer { list -> list?.let {
+      binding.emptyListText.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+      adapter.updateData(list)
+    } })
     viewModel.getShowRemovedFromFavorites.observe(this, Observer {
       Snackbar.make(activity!!.findViewById(R.id.container), R.string.removed_from_favorites, Snackbar.LENGTH_SHORT).show()
     })

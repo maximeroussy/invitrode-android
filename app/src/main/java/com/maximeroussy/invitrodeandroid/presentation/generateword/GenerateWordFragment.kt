@@ -42,16 +42,16 @@ class GenerateWordFragment: Fragment() {
   }
 
   private fun setupObservables() {
-    viewModel.getShowSavedToFavorites.observe(this, Observer {
+    viewModel.getShowSavedToFavourites.observe(this, Observer {
       Snackbar.make(activity!!.findViewById(R.id.container), string.saved_to_favorites, Snackbar.LENGTH_SHORT).show()
     })
-    viewModel.getShowRemovedFromFavorites.observe(this, Observer {
+    viewModel.getShowRemovedFromFavourites.observe(this, Observer {
       Snackbar.make(activity!!.findViewById(R.id.container), R.string.removed_from_favorites, Snackbar.LENGTH_SHORT).show()
     })
-    viewModel.getShowSaveToFavoritesError.observe(this, Observer {
+    viewModel.getShowSaveToFavouritesError.observe(this, Observer {
       showDialog(R.string.error_saving_to_favorites)
     })
-    viewModel.getShowRemoveFromFavoritesError.observe(this, Observer {
+    viewModel.getShowRemoveFromFavouritesError.observe(this, Observer {
       showDialog(R.string.error_removing_from_favorites)
     })
     viewModel.getShowWordLengthEnabled.observe(this, Observer {

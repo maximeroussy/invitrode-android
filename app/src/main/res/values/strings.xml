@@ -17,4 +17,5 @@
     \n\nPlease try again.</string>
   <string name="error_removing_from_favorites">There was an unexpected error removing the word from your favourites.
     \n\nPlease try again.</string>
+  <string name="empty_word_list">You haven\'t favourited any words yet.\n\nOnce you add words to your favourites, they\'ll appear here.</string>
 </resources>

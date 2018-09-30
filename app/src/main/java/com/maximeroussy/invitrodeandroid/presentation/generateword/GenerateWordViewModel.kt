@@ -5,7 +5,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.maximeroussy.invitrodeandroid.RandomWord
+import com.maximeroussy.invitrode.WordGenerator
 import com.maximeroussy.invitrodeandroid.data.InvitrodeDatabase
 import com.maximeroussy.invitrodeandroid.data.words.Word
 import com.maximeroussy.invitrodeandroid.data.words.WordDao
@@ -20,55 +20,56 @@ class GenerateWordViewModel(application: Application) : AndroidViewModel(applica
   val word = ObservableField<String>("INVITRODE")
   val wordLength = ObservableField<String>("3")
   val generateButtonEnabled = ObservableBoolean(true)
-  val favoriteButtonEnabled = ObservableBoolean(true)
+  val favouriteButtonEnabled = ObservableBoolean(true)
   val specifyWordLengthEnabled = ObservableBoolean(false)
-  val isWordFavorited = ObservableBoolean(false)
-  private val showSavedToFavorites = SingleLiveEvent<Any>()
-  private val showRemovedFromFavorites = SingleLiveEvent<Any>()
-  private val showSaveToFavoritesError = SingleLiveEvent<Any>()
-  private val showRemoveFromFavoritesError = SingleLiveEvent<Any>()
+  val isWordFavourited = ObservableBoolean(false)
+  private val showSavedToFavourites = SingleLiveEvent<Any>()
+  private val showRemovedFromFavourites = SingleLiveEvent<Any>()
+  private val showSaveToFavouritesError = SingleLiveEvent<Any>()
+  private val showRemoveFromFavouritesError = SingleLiveEvent<Any>()
   private val showWordLengthEnabled = SingleLiveEvent<Any>()
   private val random = Random()
+  private val generator = WordGenerator()
   private val wordStack = Stack<String>()
   private val wordDao: WordDao = InvitrodeDatabase.getInstance(application).wordDao()
   private var isTwoWords = false
 
-  val getShowSavedToFavorites : LiveData<Any>
-    get() = showSavedToFavorites
+  val getShowSavedToFavourites : LiveData<Any>
+    get() = showSavedToFavourites
 
-  val getShowRemovedFromFavorites : LiveData<Any>
-    get() = showRemovedFromFavorites
+  val getShowRemovedFromFavourites : LiveData<Any>
+    get() = showRemovedFromFavourites
 
-  val getShowSaveToFavoritesError : LiveData<Any>
-    get() = showSaveToFavoritesError
+  val getShowSaveToFavouritesError : LiveData<Any>
+    get() = showSaveToFavouritesError
 
-  val getShowRemoveFromFavoritesError : LiveData<Any>
-    get() = showRemoveFromFavoritesError
+  val getShowRemoveFromFavouritesError : LiveData<Any>
+    get() = showRemoveFromFavouritesError
 
   val getShowWordLengthEnabled : LiveData<Any>
     get() = showWordLengthEnabled
 
-  fun onFavoriteButtonClicked() {
-    favoriteButtonEnabled.set(false)
-    isWordFavorited.set(!isWordFavorited.get())
-    if (isWordFavorited.get()) {
+  fun onFavouriteButtonClicked() {
+    favouriteButtonEnabled.set(false)
+    isWordFavourited.set(!isWordFavourited.get())
+    if (isWordFavourited.get()) {
       launch(UI) {
         try {
           saveWordToFavorites(Word(word = word.get().toString()))
-          showSavedToFavorites.call()
-          favoriteButtonEnabled.set(true)
+          showSavedToFavourites.call()
+          favouriteButtonEnabled.set(true)
         } catch (e: Exception) {
-          showSaveToFavoritesError.call()
+          showSaveToFavouritesError.call()
         }
       }
     } else {
       launch(UI) {
         try {
           removeWordFromFavorites(word.get().toString())
-          showRemovedFromFavorites.call()
-          favoriteButtonEnabled.set(true)
+          showRemovedFromFavourites.call()
+          favouriteButtonEnabled.set(true)
         } catch (e: Exception) {
-          showRemoveFromFavoritesError.call()
+          showRemoveFromFavouritesError.call()
         }
       }
     }
@@ -110,22 +111,22 @@ class GenerateWordViewModel(application: Application) : AndroidViewModel(applica
       true -> {
         val length = wordLength.get()!!.toInt()
         when (isTwoWords) {
-          true -> RandomWord.getNewWord(length) + " " + RandomWord.getNewWord(length)
-          false -> RandomWord.getNewWord(length)
+          true -> generator.newWord(length) + " " + generator.newWord(length)
+          false -> generator.newWord(length)
         }
       }
       false -> {
         when (isTwoWords) {
-          true -> RandomWord.getNewWord(rand(3, 12)) + " " + RandomWord.getNewWord(rand(3, 12))
-          false -> RandomWord.getNewWord(rand(3, 12))
+          true -> generator.newWord(rand(3, 12)) + " " + generator.newWord(rand(3, 12))
+          false -> generator.newWord(rand(3, 12))
         }
       }
     }
   }
 
   private fun resetFavorite() {
-    if (isWordFavorited.get()) {
-      isWordFavorited.set(false)
+    if (isWordFavourited.get()) {
+      isWordFavourited.set(false)
     }
   }
 

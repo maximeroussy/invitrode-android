@@ -1,1 +1,1 @@
-include ':app', ':invitrode'
+include ':app'

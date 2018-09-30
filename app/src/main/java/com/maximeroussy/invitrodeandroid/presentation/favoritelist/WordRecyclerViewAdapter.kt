@@ -25,7 +25,7 @@ class WordRecyclerViewAdapter(private val items: MutableList<Word>) : RecyclerVi
   override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
     val item = items[position]
     holder.bind(item as Any)
-    holder.itemView.setBackgroundColor(if (selectedItems.get(position, false)) Color.GRAY else Color.WHITE )
+    holder.itemView.setBackgroundColor(if (selectedItems.get(position, false)) Color.LTGRAY else Color.WHITE )
   }
 
   override fun getItemCount(): Int = items.size
