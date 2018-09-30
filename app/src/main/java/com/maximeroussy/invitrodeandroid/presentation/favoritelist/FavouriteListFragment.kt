@@ -23,8 +23,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.maximeroussy.invitrodeandroid.R
 import com.maximeroussy.invitrodeandroid.data.words.Word
 import com.maximeroussy.invitrodeandroid.databinding.FragmentFavouriteListBinding
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
-import kotlinx.android.synthetic.main.fragment_favourite_list.*
 
 class FavouriteListFragment : Fragment(), WordRecyclerViewAdapter.OnItemClickListener {
   private lateinit var binding: FragmentFavouriteListBinding

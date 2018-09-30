@@ -1,7 +1,6 @@
 package com.maximeroussy.invitrodeandroid.presentation.favoritelist
 
 import android.app.Application
-import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.maximeroussy.invitrodeandroid.data.InvitrodeDatabase
